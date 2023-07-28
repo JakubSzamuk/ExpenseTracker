@@ -4,7 +4,7 @@
     "web": {
       "bundler": "metro"
     },
-    "name": "reactnative",
-    "slug": "reactnative"
+    "name": "Cocoa Finance",
+    "slug": "Keep track of your spending in style!"
   }
 }

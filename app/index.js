@@ -5,6 +5,7 @@ import { COLORS } from "../constants/theme"
 import InfoCard from '../components/Info';
 import Main from '../components/Main';
 
+
 const Home = () => {
   const router = useRouter()
   return (
@@ -19,7 +20,9 @@ const Home = () => {
           headerShadowVisible: false,
           headerStyle: { backgroundColor: COLORS.background },
           headerRight: () => (
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => router.push("/newDoc")}
+              >
                 <View style={{
                   height: 56,
                   width: 56, 
@@ -33,17 +36,26 @@ const Home = () => {
                 </View>
               </TouchableOpacity>
           ),
-          headerLeft: () => (
+          headerLeft: () => {
             <Image
               style={{
-                width: 100
+                height: 50,
+                resizeMode: "contain"
               }}
-              source={require("../assets/Logo.svg")}
+              source={require("../assets/Logo.png")}
             />
-          )
+          }
         }}
       />
       <ScrollView style={{ backgroundColor: COLORS.background }}>
+        <Text style={{
+          fontSize: 38,
+          marginLeft: 8,
+          fontFamily: "RobotoSlab",
+          color: COLORS.secondary
+        }}>
+          Welcome to your dashboard,
+        </Text>
         <View style={{ backgroundColor: COLORS.background, flexDirection: "row", justifyContent: 'space-evenly' }}>
           <InfoCard />
           <InfoCard icon={"inbound"} />
@@ -54,6 +66,15 @@ const Home = () => {
           padding: 8
         }}>
           <Main />
+          <View>
+            <TouchableOpacity>
+              <Text></Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+
+              <Text>View All</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>

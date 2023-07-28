@@ -22,12 +22,12 @@ const InfoCard = ({ text, icon }) => {
         <Ionicons name={icon ? "trending-up-outline" : "cash-outline"} style={styles.iconStyle(icon)} />
       </View>
       
-      <Text style={{ marginLeft: 4, fontSize: 18, color: COLORS.text, marginTop: 16, fontFamily: "RobotoSlab" }}>{icon ? "Next payment in:" : "Current Savings:"}</Text>
+      <Text style={{ marginLeft: 4, fontSize: 18, color: COLORS.primary, marginTop: 16, fontFamily: "RobotoSlab" }}>{icon ? "Next payment in:" : "Current Savings:"}</Text>
 
       <View>
         <Text style={{
           fontSize: 40,
-          color: COLORS.text
+          color: COLORS.primary
         }}>{text}</Text>
       </View>
       

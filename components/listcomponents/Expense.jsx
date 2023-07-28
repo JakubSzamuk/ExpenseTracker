@@ -23,19 +23,23 @@ const styles = StyleSheet.create({
   })
 })
 import { COLORS } from '../../constants/theme';
+import { useRouter } from 'expo-router';
 
 
 
-const Expense = ({ direction, recipient, amount }) => {
+const Expense = ({ direction, recipient, amount, expenseId }) => {
+  const router = useRouter()
   return (
     <View style={{
       flexDirection: "column",
       justifyContent: 'center',
       alignItems: 'center'
-    }}>
+    }}
+    >
       <TouchableOpacity style={{
-        elevation: 4,
-        backgroundColor: COLORS.background,
+        elevation: 1,
+        shadowColor: "#000",
+        backgroundColor: COLORS.tertiary,
         borderRadius: 32.5,
         height: 65,
         width: "100%",
@@ -43,21 +47,25 @@ const Expense = ({ direction, recipient, amount }) => {
         alignItems: 'center',
         flexDirection: 'row',
         position: 'relative',
-      }}> 
+      }}
+        onPress={() => router.push(`/expenses/${expenseId}`)}
+      > 
         <View style={styles.expenseImage(direction)}>
           <Ionicons name="paper-plane-outline" style={styles.expenseIcon(direction)} />
         </View>
         <Text style={{
           marginLeft: 8,
           fontSize: 24,
-          color: COLORS.secondary,
-          fontFamily: "RobotoSlab"
-        }}>
+          color: COLORS.primary,
+          fontFamily: "RobotoSlab",
+        }}
+          numberOfLines={1}
+        >
           {recipient}
         </Text>
         <Text style={{
           fontSize: 20,
-          color: COLORS.secondary,
+          color: COLORS.primary,
           fontFamily: "RobotoSlab",
           position: "absolute",
           right: 24,
