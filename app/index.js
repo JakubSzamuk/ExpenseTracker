@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, SafeAreaView, TouchableOpacity, Image } from 'react-native'
 import { Stack, useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from "../constants/theme"
@@ -34,16 +34,19 @@ const Home = () => {
               </TouchableOpacity>
           ),
           headerLeft: () => (
-            <TouchableOpacity>
-
-            </TouchableOpacity>
+            <Image
+              style={{
+                width: 100
+              }}
+              source={require("../assets/Logo.svg")}
+            />
           )
         }}
       />
       <ScrollView style={{ backgroundColor: COLORS.background }}>
         <View style={{ backgroundColor: COLORS.background, flexDirection: "row", justifyContent: 'space-evenly' }}>
           <InfoCard />
-          <InfoCard />
+          <InfoCard icon={"inbound"} />
         </View>
         <View style={{
           marginTop: 40,

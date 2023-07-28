@@ -1,10 +1,10 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 
 import { COLORS } from '../constants/theme'
 import { Ionicons } from '@expo/vector-icons';
 
-const InfoCard = ({ text }) => {
+const InfoCard = ({ text, icon }) => {
   return (
     <TouchableOpacity
       style={{
@@ -19,10 +19,10 @@ const InfoCard = ({ text }) => {
       }}
     >
       <View style={{ alignItems: 'center', width: '100%', flexDirection: 'column', marginTop: 30 }}>
-        <Ionicons name="cash-outline" style={{ fontSize: 60, color: COLORS.primary, padding: 8, backgroundColor: COLORS.background, height: 76, width: 76, borderRadius: 38 }} />
+        <Ionicons name={icon ? "trending-up-outline" : "cash-outline"} style={styles.iconStyle(icon)} />
       </View>
       
-      <Text style={{ marginLeft: 4, fontSize: 20, color: COLORS.text }}>Current Savings:</Text>
+      <Text style={{ marginLeft: 4, fontSize: 18, color: COLORS.text, marginTop: 16, fontFamily: "RobotoSlab" }}>{icon ? "Next payment in:" : "Current Savings:"}</Text>
 
       <View>
         <Text style={{
@@ -36,3 +36,16 @@ const InfoCard = ({ text }) => {
 }
 
 export default InfoCard
+
+const styles = StyleSheet.create({
+  iconStyle: (icon) => ({
+    fontSize: icon ? 55 : 60, 
+    color: COLORS.primary, 
+    padding: 8, 
+    backgroundColor: COLORS.background, 
+    height: 76, 
+    width: 76, 
+    borderRadius: 38
+  })
+
+})

@@ -11,18 +11,18 @@ const Main = () => {
   const currentData = [
     {
       type: "outbound",
-      amount: "£50",
-      recipient: "bank"
+      amount: "50",
+      recipient: "Bank"
     },
     {
       type: "inbound",
-      amount: "£20000",
-      recipient: "freelance"
+      amount: "20000",
+      recipient: "Freelance"
     },
     {
       type: "outbound",
-      amount: "£500",
-      recipient: "friend"
+      amount: "500",
+      recipient: "Friend"
     }
 ]
 

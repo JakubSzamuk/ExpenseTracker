@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   }),
   expenseIcon: (direction) => ({
-    color: direction == "inbound" ? 'green' : 'red',
+    color: COLORS.primary,
     fontSize: 32
   })
 })
@@ -36,16 +36,34 @@ const Expense = ({ direction, recipient, amount }) => {
       <TouchableOpacity style={{
         elevation: 4,
         backgroundColor: COLORS.background,
-        borderRadius: 24,
+        borderRadius: 32.5,
         height: 65,
-        width: "95%",
+        width: "100%",
         color: COLORS.text,
-        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        position: 'relative',
       }}> 
-
         <View style={styles.expenseImage(direction)}>
           <Ionicons name="paper-plane-outline" style={styles.expenseIcon(direction)} />
         </View>
+        <Text style={{
+          marginLeft: 8,
+          fontSize: 24,
+          color: COLORS.secondary,
+          fontFamily: "RobotoSlab"
+        }}>
+          {recipient}
+        </Text>
+        <Text style={{
+          fontSize: 20,
+          color: COLORS.secondary,
+          fontFamily: "RobotoSlab",
+          position: "absolute",
+          right: 24,
+        }}>
+          {direction == "inbound" ? `+£${amount}` : `-£${amount}`}
+        </Text>
       </TouchableOpacity>
     </View>
   )

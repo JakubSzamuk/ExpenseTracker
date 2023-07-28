@@ -1,14 +1,18 @@
-# Expo Router Example
+# Cocoa Finance
 
-Use [`expo-router`](https://expo.github.io/router) to build native navigation using files in the `app/` directory.
+A Work in progress React native finance application for keeping track of money,
 
-## 🚀 How to use
+The purpose of this app is to learn react native and gain experience however if anyone would like this to be published I will publish it.
 
-```sh
-npx create-expo-app -e with-router
-```
+------------------------------
+## Tech stack:
 
-## 📝 Notes
+- React Native
+- Expo router
+- material ui
 
-- [Expo Router: Docs](https://expo.github.io/router)
-- [Expo Router: Repo](https://github.com/expo/router)
+More to come, perhaps firebase
+
+------------------------------
+
+# Screenshots coming soon!
