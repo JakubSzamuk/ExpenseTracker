@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.1",
     "@mui/material": "^5.14.2",
+    "@react-native-async-storage/async-storage": "^1.19.1",
     "expo": "^48.0.7",
     "expo-constants": "~14.2.1",
     "expo-font": "~11.1.1",

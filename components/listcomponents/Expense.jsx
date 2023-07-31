@@ -8,7 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 const styles = StyleSheet.create({
   expenseImage: (direction) => ({
     height: 48,
-    transform: direction == "inbound" ? [{scaleX: -1}, {scaleY: -1}] : [],
+    transform: direction ? [] : [{scaleX: -1}, {scaleY: -1}],
     width: 48,
     padding: 8,
     backgroundColor: COLORS.secondary,
@@ -29,6 +29,8 @@ import { useRouter } from 'expo-router';
 
 const Expense = ({ direction, recipient, amount, expenseId }) => {
   const router = useRouter()
+  
+  
   return (
     <View style={{
       flexDirection: "column",
@@ -61,7 +63,7 @@ const Expense = ({ direction, recipient, amount, expenseId }) => {
         }}
           numberOfLines={1}
         >
-          {recipient}
+          {recipient ? recipient : "No recipient"}
         </Text>
         <Text style={{
           fontSize: 20,
@@ -70,7 +72,7 @@ const Expense = ({ direction, recipient, amount, expenseId }) => {
           position: "absolute",
           right: 24,
         }}>
-          {direction == "inbound" ? `+£${amount}` : `-£${amount}`}
+          {direction ? `-£${amount}` :  `+£${amount}`}
         </Text>
       </TouchableOpacity>
     </View>

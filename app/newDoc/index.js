@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { COLORS } from '../../constants/theme'
 import { useState } from 'react'
 import { Ionicons } from '@expo/vector-icons';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -64,7 +64,62 @@ const AddDoc = () => {
       }
     }
     
+
+    sendData(actualAmount)
+
     console.log(actualAmount)
+  }
+
+  const sendData = async (actualMoney) => {
+
+
+    try {
+      let index
+      try {
+        index = await AsyncStorage.getItem("currentIndex")
+      } catch {
+        console.log("oops")
+      }
+      let currentIndex
+      if (index) {
+        currentIndex = parseInt(index) + 1
+        await AsyncStorage.setItem("currentIndex", currentIndex.toString())
+      }
+      else {
+        currentIndex = 1
+        await AsyncStorage.setItem("currentIndex", currentIndex.toString())
+      }
+
+      let expenseObject = {
+        "recipient": recipientText,
+        "direction": expenseSwitch,
+        "title": title,
+        "details": details,
+        "date": date,
+        "amount": actualMoney,
+        "doRepeat": repeated,
+        "repeat": repeatSelect,
+        "index": currentIndex,
+        "taxAmount": taxAmount,
+      }
+  
+      await AsyncStorage.setItem(`expenseObject${currentIndex}`, JSON.stringify(expenseObject))
+      router.push("/")
+      
+    } catch (e) {
+      console.log("oops")
+      do {
+        index = await AsyncStorage.getItem("currentIndex")
+        let current = await AsyncStorage.getItem(`expenseObject${index}`)
+        if (!current) {
+          await AsyncStorage.setItem("currentIndex" , index - 1)
+        }
+      } while (!current)
+      
+    }
+    
+    
+    
   }
   
   const [repeated, setRepeated] = useState(false)
@@ -78,6 +133,18 @@ const AddDoc = () => {
     "Monthly",
     "Yearly"
   ]
+
+  const retrieveObjects = async () => {
+    let currentIndex = (await AsyncStorage.getItem("currentIndex"))
+    for (let i = 1; i <= currentIndex; i-=-1) {
+      let currentExpense = await AsyncStorage.getItem(`expenseObject${i}`)
+      console.log(currentExpense)
+    }
+    console.log(currentIndex)
+  }
+  const deleteObjects = async () => {
+    await AsyncStorage.clear()
+  }
   return (
     <SafeAreaView style={{
       backgroundColor: COLORS.background
@@ -249,7 +316,7 @@ const AddDoc = () => {
             }} 
               value={recipientText}
               onChangeText={(text) => setRecipientText(text)}
-              placeholder='Recipient'
+              placeholder={!expenseSwitch ? 'Sender' : 'Recipient'}
             />
             <View style={{
               alignItems: 'center',
@@ -381,6 +448,13 @@ const AddDoc = () => {
                   fontSize: 24
                 }}>Submit</Text>
               </TouchableOpacity>
+              <TouchableOpacity onPress={retrieveObjects}>
+                <Text>Retrieve</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={deleteObjects}>
+                <Text>Delete</Text>
+              </TouchableOpacity>
+
             </View>
           </View>
         </View>
