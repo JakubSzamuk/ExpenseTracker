@@ -64,7 +64,9 @@ const Main = () => {
           position: 'absolute',
           right: 8,
           top: '50%',
-        }}>
+        }}
+          onPress={() => router.push("expenselist")}
+        >
           <Text style={{
             color: COLORS.primary,
             fontFamily: "RobotoSlab",
