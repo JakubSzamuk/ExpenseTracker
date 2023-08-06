@@ -17,7 +17,6 @@ const InfoCard = ({ text, icon }) => {
       if (logExpense) {
         let amount = parseInt(JSON.parse(logExpense).amount)
         let direction = JSON.parse(logExpense).direction
-        console.log(amount, direction)
         if (direction == true) {
           totalPlaceholderAmount = totalPlaceholderAmount - amount
         }
@@ -33,13 +32,59 @@ const InfoCard = ({ text, icon }) => {
 
   const retrieveNextPaymentData = async () => {
     let currentIndex = parseInt(await AsyncStorage.getItem("currentIndex"))
+    let tempArray = []
+    let count = 0
     for (let i = 1; i <= currentIndex; i++) {
       let logExpense = await AsyncStorage.getItem(`expenseObject${i}`)
       if (logExpense && JSON.parse(logExpense).doRepeat == true) {
         let repeatFrequency = JSON.parse(logExpense).repeat
-        console.log(repeatFrequency)
+        let repeatDate = JSON.parse(logExpense).date
+        
+        let repeatAmount = JSON.parse(logExpense).amount
+        let save = JSON.parse(logExpense).savedDate
+
+        tempArray[count] = { frequency: repeatFrequency, date: repeatDate, amount: repeatAmount, savedDate: save, origin: i }
+        count++
       }
     }
+    tempArray = tempArray.sort(function(a, b) {
+      a = a.date.split("/").reverse().join("")
+      b = b.date.split("/").reverse().join("")
+
+      return a > b ? 1 : -1
+    })
+    for (let i = 0; i < tempArray.length; i++) {
+      let currentTest = tempArray[i]
+      
+      if (currentTest.frequency == "Daily") {
+        let currentDateMoment = new Date()
+        let formatMoment = currentDateMoment.getDate() + "/" + (currentDateMoment.getMonth() + 1) + "/" + currentDateMoment.getFullYear()
+        let expenseCurrent = await AsyncStorage.getItem(`expenseObject${currentTest.origin}`)
+        console.log(expenseCurrent)
+        if (!JSON.parse(expenseCurrent).savedDate.includes(formatMoment)) {
+          let editExpense = JSON.parse(expenseCurrent).savedDate
+          editExpense.push(formatMoment.toString())
+          
+
+          let expenseObject = {
+            ...JSON.parse(expenseCurrent),
+            ...{
+              "doRepeat": false,
+            }
+          }
+          console.log(expenseObject)
+          let momentaryIndex = parseInt(await AsyncStorage.getItem("currentIndex"))
+          await AsyncStorage.setItem(`expenseObject${momentaryIndex + 1}`, JSON.stringify(expenseObject))
+          await AsyncStorage.setItem("currentIndex", (momentaryIndex + 1).toString())
+
+
+
+          let newVersion = { ...JSON.parse(expenseCurrent), ...{ savedDate: editExpense } }
+          await AsyncStorage.setItem(`expenseObject${currentTest.origin}`,  JSON.stringify(newVersion))
+        }
+      }
+    }
+
   }
 
 

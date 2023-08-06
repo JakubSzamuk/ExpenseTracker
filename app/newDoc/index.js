@@ -101,6 +101,7 @@ const AddDoc = () => {
         "repeat": repeatSelect,
         "index": currentIndex,
         "taxAmount": taxAmount,
+        "savedDate": [date],
       }
   
       await AsyncStorage.setItem(`expenseObject${currentIndex}`, JSON.stringify(expenseObject))
