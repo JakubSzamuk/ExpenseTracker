@@ -23,9 +23,6 @@ const Main = () => {
     }
     setExpenseArray(currentArray)
   }    
-  if (expenseArray.length > 0) {
-    console.log(expenseArray)
-  }
 
   const [refreshing, setRefreshing] = useState(false)
   

@@ -174,7 +174,11 @@ const AddDoc = () => {
           headerTitleAlign: 'center'
         }}
       />
-      <ScrollView>
+      <ScrollView style={{
+        width: '100%',
+        height: '100%',
+        backgroundColor: COLORS.background
+      }}>
         <View
           style={{
             height: "100%",

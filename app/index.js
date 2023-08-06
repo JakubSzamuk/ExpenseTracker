@@ -47,7 +47,10 @@ const Home = () => {
           }
         }}
       />
-      <ScrollView style={{ backgroundColor: COLORS.background }}>
+      <ScrollView style={{ backgroundColor: COLORS.background,
+        width: '100%',
+        height: '100%'
+      }}>
         <Text style={{
           fontSize: 38,
           marginLeft: 8,
@@ -69,10 +72,6 @@ const Home = () => {
           <View>
             <TouchableOpacity>
               <Text></Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-
-              <Text>View All</Text>
             </TouchableOpacity>
           </View>
         </View>

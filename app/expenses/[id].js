@@ -31,7 +31,10 @@ const ExpenseDetails = () => {
             <TouchableOpacity
               onPress={() => router.back()}
             >
-              <Text>Back</Text>
+              <Ionicons name='arrow-back-outline' style={{
+                fontSize: 30,
+                color: COLORS.secondary
+              }} />
             </TouchableOpacity>
           ),
           headerShadowVisible: false,
@@ -40,7 +43,11 @@ const ExpenseDetails = () => {
           }
         }}
       />
-      <ScrollView>
+      <ScrollView style={{
+        width: '100%',
+        height: '100%',
+        backgroundColor: COLORS.background
+      }}>
         <View>
           {expenseData ? (
             <View style={{

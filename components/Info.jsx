@@ -1,12 +1,66 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { COLORS } from '../constants/theme'
 import { Ionicons } from '@expo/vector-icons';
 
 const InfoCard = ({ text, icon }) => {
+
+  let totalPlaceholderAmount = 0
+
+  const [totalAmount, setTotalAmount] = useState(0)
+  const retrieveData = async () => {
+    let currentIndex = parseInt(await AsyncStorage.getItem("currentIndex"))
+    for (let i = 0; i <= currentIndex; i++) {
+      let logExpense = await AsyncStorage.getItem(`expenseObject${i}`)
+      if (logExpense) {
+        let amount = parseInt(JSON.parse(logExpense).amount)
+        let direction = JSON.parse(logExpense).direction
+        console.log(amount, direction)
+        if (direction == true) {
+          totalPlaceholderAmount = totalPlaceholderAmount - amount
+        }
+        else {
+          totalPlaceholderAmount = totalPlaceholderAmount + amount
+        }
+      }
+    }
+
+    setTotalAmount(totalPlaceholderAmount)
+  }
+
+
+  const retrieveNextPaymentData = async () => {
+    let currentIndex = parseInt(await AsyncStorage.getItem("currentIndex"))
+    for (let i = 1; i <= currentIndex; i++) {
+      let logExpense = await AsyncStorage.getItem(`expenseObject${i}`)
+      if (logExpense && JSON.parse(logExpense).doRepeat == true) {
+        let repeatFrequency = JSON.parse(logExpense).repeat
+        console.log(repeatFrequency)
+      }
+    }
+  }
+
+
+
+
+
+  useEffect(() => {
+    if (icon) {
+      retrieveNextPaymentData()
+    }
+    else {
+      retrieveData()
+    }
+  }, [])
+
+
+
+
+
   return (
-    <TouchableOpacity
+    <View
       style={{
         backgroundColor: COLORS.secondary,
         overflow: 'visible',
@@ -28,10 +82,10 @@ const InfoCard = ({ text, icon }) => {
         <Text style={{
           fontSize: 40,
           color: COLORS.primary
-        }}>{text}</Text>
+        }}>{totalAmount}</Text>
       </View>
       
-    </TouchableOpacity>
+    </View>
   )
 }
 
